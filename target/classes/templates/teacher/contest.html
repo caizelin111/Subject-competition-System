@@ -1,0 +1,670 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" xmlns:a="http://www.w3.org/1999/html">
+<head>
+    <script type="text/javascript" th:src="@{/js/jquery-3.4.1.min.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+
+    <style>
+        .navbar {
+            margin-bottom: 0;
+            top: 0px;
+            position: fixed;
+            left: 0;
+            right: 0;
+            /*background: white;*/
+            width: 100%;
+            height: 55px;
+
+        }
+
+        .sidebar {
+            background: lightgray;
+            padding: 0;
+            position: fixed;
+            bottom: 0;
+            top: 55px;
+            left: 0;
+            background: #2f4050;
+
+
+        }
+
+        /*鼠标没有在范围内情况下字体颜色*/
+        .sidebar ul li a {
+            color: #9d9d9d;
+            font-size: 16px;
+
+        }
+
+        /*鼠标浮停点击后离开颜色保持浮停的状态*/
+        .sidebar ul li a:focus {
+            background: #337ab7;
+            color: white;
+        }
+
+        /*鼠标浮停时颜色*/
+        .sidebar ul li a:hover {
+            background: #337ab7;
+            color: white;
+
+        }
+
+        /*.sidebar ul li a:active{*/
+        /*    background: #337ab7 ;*/
+        /*    color: white;*/
+
+        /*}*/
+
+        .content {
+            position: fixed;
+            top: 55px;
+            bottom: 0;
+            right: 0;
+            overflow: scroll;
+
+
+        }
+
+        /*去掉bootstrap表格边框*/
+        .tbl1 > tbody > tr > th {
+            border: white 0px solid;
+        }
+
+        .tbl1 > tbody > tr > td {
+            border: white 0px solid;
+            /*设置表格高度*/
+            height: 50px;
+
+        }
+
+        .tbl1 > tbody > tr {
+            margin-top: 100px;
+        }
+
+        /*设置表格中input表单的长度*/
+        .tbl1 > tbody > tr > td > input {
+            width: 30%;
+        }
+
+        .tbl2 {
+            width: 80%;
+        }
+
+        .tbl3 {
+            width: 80%;
+        }
+
+
+    </style>
+
+    <title>学科竞赛录入</title>
+</head>
+
+
+<!--<body style="background-image: url(/images/main.jpg); background-size: cover;">-->
+<body>
+<div class="navbar ">
+    <nav class="navbar  navbar-inverse" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" style="color: white;font-size: 18px" href="#">学科竞赛管理系统</a>
+            </div>
+            <div>
+                <!--向左对齐-->
+                <ul class="nav navbar-nav navbar-left">
+
+                </ul>
+                <!--向右对齐-->
+                <ul class="nav navbar-nav navbar-right">
+                    <!-- -如果未登陆-->
+                    <li sec:authorize="!isAuthenticated()"><a href="/toLogin"
+                    ><span class="glyphicon glyphicon-log-in"></span> 登录</a></li>
+                    <!--                    <li sec:authorize="!isAuthenticated()"><a href="helloAdmin"-->
+                    <!--                    ><span class="glyphicon glyphicon-user"></span> 注册</a></li>-->
+
+                    <!--如果登陆：用户名，注销-->
+                    <li sec:authorize="isAuthenticated()">
+                    <li sec:authorize="isAuthenticated()">
+                        <a>
+                            <span sec:authorize="hasRole('ROLE_admin')">教务处管理员</span>
+                            <span sec:authorize="hasRole('ROLE_teacher')">第一导师</span>
+                            <span sec:authorize="hasRole('ROLE_senior')">二级学院</span>
+                            <span sec:authorize="hasRole('ROLE_student')">学生</span>
+                            <span sec:authentication="name"></span>
+                        </a>
+                    </li>
+                    </li>
+                    <li sec:authorize="isAuthenticated()"><a href="/logout"><span
+                            class="glyphicon glyphicon-off"></span> 注销</a></li>
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+</div>
+
+<div class="container-fluid main">
+
+
+    <div class="sidebar" style="width: 16%;float: left">
+        <!--            惠州学院图片-->
+        <!--        <div style="margin:40px auto 50px auto  ;text-align: center">-->
+        <!--            <img th:src="@{/images/hzxy.jpg}"  class="img-thumbnail"/>-->
+        <!--        </div>-->
+        <ul class="nav nav-pills nav-stacked ">
+            <li><a href="/toOwn">&nbsp;<span class="glyphicon glyphicon-user"></span>&emsp; 个人中心</a></li>
+            <li><a href="/toRead">&nbsp;<span class="glyphicon glyphicon-book"></span>&emsp; 阅读公告</a></li>
+            <li sec:authorize="hasRole('ROLE_teacher')"><a href="/toContest">&nbsp;<span
+                    class="glyphicon glyphicon-leaf"></span>&emsp; 学科竞赛</a></li>
+            <li sec:authorize="hasRole('ROLE_senior')"><a href="/toCheck">&nbsp;<span
+                    class="glyphicon glyphicon-check"></span>&emsp;
+                学院审核</a></li>
+            <li sec:authorize="hasRole('ROLE_admin')"><a href="/toNotice">&nbsp;<span
+                    class="glyphicon glyphicon-edit"></span>&emsp; 通知公告</a></li>
+            <li sec:authorize="hasRole('ROLE_admin')"><a href="/toNotice">&nbsp;<span
+                    class="glyphicon glyphicon-edit"></span>&emsp; 获奖考核</a></li>
+            <li sec:authorize="hasRole('ROLE_admin')"><a href="/toNotice">&nbsp;<span
+                    class="glyphicon glyphicon-edit"></span>&emsp; 教师反馈</a></li>
+            <li sec:authorize="hasRole('ROLE_admin')"><a href="/toNotice">&nbsp;<span
+                    class="glyphicon glyphicon-edit"></span>&emsp; 竞赛信息</a></li>
+            <li sec:authorize="hasRole('ROLE_admin')"><a href="/toNotice">&nbsp;<span
+                    class="glyphicon glyphicon-edit"></span>&emsp; 数据维护</a></li>
+        </ul>
+        ​
+    </div>
+    <div class="content " style="width: 84%;float: left">
+        <div style="background: #e8e8e8;width:100%;height:60px;"></div>
+        <div>
+            <button id="btn1" class="btn btn-default"></button>
+            <hr/><!--下横线-->
+            <div style="margin-left: 12%">
+                <form role="form" enctype="multipart/form-data">
+                    <div class="div01">
+                        <table class="table tbl1 ">
+                            <caption>基本信息</caption>
+                            <tbody class="tbody01">
+                            <tr>
+                                <th width="160">学科竞赛名称</th>
+                                <td>
+                                    <input id="contestname" class="form-control" type="text" name="contestname"/>
+                                </td>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th>获奖作品名称</th>
+                                <td>
+                                    <input class="form-control" id="workname" type="text" name="workname">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th> 竞赛主办</th>
+                                <td>
+                                    <input class="form-control" id="sponsor" type="text" name="sponsor"></td>
+                            </tr>
+
+
+                            <tr>
+                                <th>发证单位</th>
+                                <td>
+                                    <input class="form-control" id="position" type="text" name="position">
+
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th>获奖时间：</th>
+                                <td>
+                                    <input class="form-control" id="datetime" type="date" name="datetime">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>所属单位</th>
+                                <td>
+                                    <input class="form-control" id="belong" type="text" name="belong"></td>
+                            </tr>
+
+
+                            <tr>
+                                <th>获奖人数</th>
+                                <td>
+                                    <input class="form-control" id="nums" type="text" name="nums"></td>
+                            </tr>
+
+                            <tr>
+                                <th>总分值</th>
+                                <td>
+                                    <input class="form-control" id="score" type="text" name="score"></td>
+                            </tr>
+                            <tr>
+                                <th>学科门类</th>
+                                <td>
+                                    <label class="radio-inline"><input type="radio" id="type" name="type"
+                                                                       value="师范类技能竞赛" checked
+                                    >师范类技能竞赛
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="type" value="非师范类技能竞赛">非师范类技能竞赛
+                                    </label>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <th><label>赛事类别</label></th>
+                                <td>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="eventcategory" value="国际级" checked>国际级
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="eventcategory" value="国家级">国家级
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="eventcategory" value="省部级">省部级
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="eventcategory" value="市级">市级
+                                    </label></td>
+                            </tr>
+                            <tr>
+                                <th><label>获奖等级</label></th>
+                                <td>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="awardgrade" value="特等奖" checked>特等奖
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="awardgrade" value="一等奖">一等奖
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="awardgrade" value="二等奖">二等奖
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="awardgrade" value="三等奖">三等奖
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="awardgrade" value="参与奖">参与奖
+                                    </label></td>
+                            </tr>
+
+                            <tr>
+                                <th><label>奖励级别</label></th>
+                                <td>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="awardlevel" value="国A" checked>国A
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="awardlevel" value="国B">国B
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="awardlevel" value="省A">省A
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="awardlevel" value="省B">省B
+                                    </label>
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+                                <th>获奖证照片</th>
+                                <td>
+                                    <input type="file" id="filename" name="filename" enctype="multipart/form-data"
+                                           multiple></td>
+                            </tr>
+
+                            </tbody>
+
+
+                        </table>
+                    </div>
+                    <hr>
+
+                    <div class="div02">
+                        <table class="tbl2 table table-hover table-bordered">
+                            <caption>获奖学生信息</caption>
+                            <tbody class="tbody02">
+                            <tr>
+                                <th>二级学院</th>
+                                <td><select class="form-control " name="institute" id="institute">
+                                    <option selected>计算机科学与工程学院</option>
+                                    <option>电子信息与电气工程学院</option>
+                                    <option>地理与旅游学院</option>
+                                    <option>经济管理学院</option>
+                                    <option>建筑与土木工程学院</option>
+                                    <option>生命科学学院</option>
+                                    <option>体育学院</option>
+                                    <option>美术与设计学院</option>
+                                    <option>外国语学院</option>
+                                    <option>教育科学学院</option>
+                                    <option>文化与传媒学院</option>
+                                    <option>旭日广东服装学院</option>
+                                    <option>政法学院/option>
+                                    <option>马克思主义学院</option>
+                                </select></td>
+
+                                <th>学号</th>
+                                <td><input class="form-control" type="text" name="sno" id="sno"></td>
+
+
+                            </tr>
+                            <tr>
+                                <th>性别</th>
+                                <td><select class="form-control" name="sex" id="sex">
+                                    <option>男</option>
+                                    <option>女</option>
+                                </select></td>
+                                <th>学科</th>
+                                <td><input class="form-control" type="text" name="subject" id="subject"></td>
+                            </tr>
+                            <tr>
+                                <th>专业</th>
+                                <td><input class="form-control" id="major" type="text" name="major"></td>
+                                <th>排名</th>
+                                <td><input class="form-control" id="ranking" type="text" name="ranking"></td>
+
+                            </tr>
+
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <div>
+                        <button id="btn01" class=" btn btn-info"><span
+                                class="glyphicon  glyphicon-plus"></span>添加一位同学
+                        </button>
+                    </div>
+                    <hr>
+                    <div class="div03">
+                        <table class="tbl3 table table-hover table-bordered">
+                            <caption>指导老师信息</caption>
+                            <tbody class="tbody03">
+                            <tr>
+                                <th>二级学院</th>
+                                <td><select class="form-control" name="tchinstitute">
+                                    <option selected>计算机科学与工程学院</option>
+                                    <option>电子信息与电气工程学院</option>
+                                    <option>地理与旅游学院</option>
+                                    <option>经济管理学院</option>
+                                    <option>建筑与土木工程学院</option>
+                                    <option>生命科学学院</option>
+                                    <option>体育学院</option>
+                                    <option>美术与设计学院</option>
+                                    <option>外国语学院</option>
+                                    <option>教育科学学院</option>
+                                    <option>文化与传媒学院</option>
+                                    <option>旭日广东服装学院</option>
+                                    <option>政法学院/option>
+                                    <option>马克思主义学院</option>
+                                </select></td>
+                                <th>工号</th>
+                                <td><input class="form-control" type="text" name="jobno" id="jobno"></td>
+                            </tr>
+                            <tr>
+                                <th>姓名</th>
+                                <td><input class="form-control" type="text" name="tchname" id="tchname"></td>
+                                <th>学历</th>
+                                <td><select class="form-control" name="education" id="education">
+                                    <option>本科</option>
+                                    <option>硕士研究生</option>
+                                    <option>博士研究生</option>
+                                </select></td>
+
+                            </tr>
+                            <tr>
+                                <th>专业</th>
+                                <td><input class="form-control" type="text" name="tchmajor"></td>
+                                <th>排名</th>
+                                <td><input class="form-control" type="text" name="tchranking"></td>
+                            </tr>
+                            <tr>
+                                <th>贡献率</th>
+                                <td><input class="form-control" type="text" name="tchrate"></td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <div>
+                        <button id="btn02" class=" btn btn-info"><span
+                                class="glyphicon  glyphicon-plus"></span>添加一位老师
+                        </button>
+                    </div>
+                    <br> <br> <br> <br> <br> <br>
+
+
+                    <div class="div04">
+                        <input class="btn btn-default" id="btn03" type="button" value="提交">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+<script>
+    $(function () {
+        $("#btn01").click(function () {
+            $(".div02").append("  <table class=\"tbl2 table table-hover table-bordered\">\n" +
+                "                        <tbody class=\"tbody02\">\n" +
+                "                        <tr>\n" +
+                "                            <th>二级学院</th>\n" +
+                "                            <td><select class=\"form-control \" name=\"institute\">\n" +
+                "                                <option>计算机科学与工程学院</option>\n" +
+                "                                <option>电子信息与电气工程学院</option>\n" +
+                "                                <option>地理与旅游学院</option>\n" +
+                "                                <option>经济管理学院</option>\n" +
+                "                                <option>建筑与土木工程学院</option>\n" +
+                "                                <option>生命科学学院</option>\n" +
+                "                                <option>体育学院</option>\n" +
+                "                                <option>美术与设计学院</option>\n" +
+                "                                <option>外国语学院</option>\n" +
+                "                                <option>教育科学学院</option>\n" +
+                "                                <option>文化与传媒学院</option>\n" +
+                "                                <option>旭日广东服装学院</option>\n" +
+                "                                <option>政法学院/option>\n" +
+                "                                <option>马克思主义学院</option>\n" +
+                "                            </select></td>\n" +
+                "\n" +
+                "                            <th>学号</th>\n" +
+                "                            <td><input class=\"form-control\" type=\"text\"name=\"sno\"></td>\n" +
+                "\n" +
+                "\n" +
+                "                        </tr>\n" +
+                "                        <tr>\n" +
+                "                            <th>性别</th>\n" +
+                "                            <td><select class=\"form-control\"name=\"sex\">\n" +
+                "                                <option>男</option>\n" +
+                "                                <option>女</option>\n" +
+                "                            </select></td>\n" +
+                "                            <th>学科</th>\n" +
+                "                            <td><input class=\"form-control\" type=\"text\" name=\"subject\"></td>\n" +
+                "                        </tr>\n" +
+                "                        <tr>\n" +
+                "                            <th>专业</th>\n" +
+                "                            <td><input class=\"form-control\" type=\"text\" name=\"major\"></td>\n" +
+                "                            <th>排名</th>\n" +
+                "                            <td><input class=\"form-control\" type=\"text\" name=\"ranking\"></td>\n" +
+                "\n" +
+                "                        </tr>\n" +
+                "\n" +
+                "                        </tbody>\n" +
+                "                    </table>");
+            return false;
+
+        });
+        $("#btn02").click(function () {
+            $(".div03").append("  <table class=\"tbl3 table table-hover table-bordered\">\n" +
+                "                            <tbody class=\"tbody03\">\n" +
+                "                            <tr>\n" +
+                "                                <th>二级学院</th>\n" +
+                "                                <td><select class=\"form-control\" name=\"tchinstitute\">\n" +
+                "                                    <option>计算机科学与工程学院</option>\n" +
+                "                                    <option>电子信息与电气工程学院</option>\n" +
+                "                                    <option>地理与旅游学院</option>\n" +
+                "                                    <option>经济管理学院</option>\n" +
+                "                                    <option>建筑与土木工程学院</option>\n" +
+                "                                    <option>生命科学学院</option>\n" +
+                "                                    <option>体育学院</option>\n" +
+                "                                    <option>美术与设计学院</option>\n" +
+                "                                    <option>外国语学院</option>\n" +
+                "                                    <option>教育科学学院</option>\n" +
+                "                                    <option>文化与传媒学院</option>\n" +
+                "                                    <option>旭日广东服装学院</option>\n" +
+                "                                    <option>政法学院/option>\n" +
+                "                                    <option>马克思主义学院</option>\n" +
+                "                                </select></td>\n" +
+                "                                <th>工号</th>\n" +
+                "                                <td><input class=\"form-control\" type=\"text\" name=\"jobno\" id=\"jobno\"></td>\n" +
+                "                            </tr>\n" +
+                "                            <tr>\n" +
+                "                                <th>姓名</th>\n" +
+                "                                <td><input class=\"form-control\" type=\"text\" name=\"tchname\" id=\"tchname\"></td>\n" +
+                "                                <th>学历</th>\n" +
+                "                                <td><select class=\"form-control\" name=\"education\" id=\"education\">\n" +
+                "                                    <option>本科</option>\n" +
+                "                                    <option>硕士研究生</option>\n" +
+                "                                    <option>博士研究生</option>\n" +
+                "                                </select></td>\n" +
+                "\n" +
+                "                            </tr>\n" +
+                "                            <tr>\n" +
+                "                                <th>专业</th>\n" +
+                "                                <td><input class=\"form-control\" type=\"text\" name=\"tchmajor\" ></td>\n" +
+                "                                <th>排名</th>\n" +
+                "                                <td><input class=\"form-control\" type=\"text\" name=\"tchranking\"></td>\n" +
+                "                            </tr>\n" +
+                "                            <tr>\n" +
+                "                                <th>贡献率</th>\n" +
+                "                                <td><input class=\"form-control\" type=\"text\" name=\"tchrate\" ></td>\n" +
+                "                            </tr>\n" +
+                "\n" +
+                "                            </tbody>\n" +
+                "                        </table>\n");
+            return false;
+
+        });
+
+
+        // 提交处理
+        $("#btn03").click(function (event) {
+            var num = 0;
+            var path;
+            $("input").each(function () {
+                if ($(this).val() == '') {
+                    num++;
+                }
+            });
+            //如果表单存在为空的，阻止表单提交
+            if (num > 0) {
+                alert("表单未填写完整");
+                return false;
+            } else {
+                path = $("input[name='filename']");
+                // alert("个数为："+path[0].files.length);
+                if (path[0].files.length > 2) {
+                    alert("上传图片不能超过2张");
+                    return false;
+                } else {
+                    var Obj1 = {};
+                    Obj1.contestname = $("input[name='contestname']").val();
+                    Obj1.workname = $("input[name='workname']").val();
+                    Obj1.sponsor = $("input[name='sponsor']").val();
+                    Obj1.position = $("input[name='position']").val();
+                    Obj1.datetime = $("input[name='datetime']").val();
+                    Obj1.belong = $("input[name='belong']").val();
+                    Obj1.nums = $("input[name='nums']").val();
+                    Obj1.score = $("input[name='score']").val();
+                    Obj1.type = $("input[name='type']:checked").val();
+                    Obj1.eventcategory = $("input[name='eventcategory']:checked").val();
+                    Obj1.awardgrade = $("input[name='awardgrade']:checked").val();
+                    Obj1.awardlevel = $("input[name='awardlevel']:checked").val();
+                    Obj1.fileurl = "";
+                    console.log(JSON.stringify(Obj1));
+
+
+                    // var cartList=[];
+                    // for (var i = 0; i < list.length; i++) {
+                    //     var cart={
+                    //         goodsName:list[i].name,
+                    //         goodsNum:list[i].number,
+                    //         goodsPresentPrice:list[i].presentPrice
+                    //     };
+                    //     cartList.push(cart);
+                    // }
+                    //
+
+                    var text = $($(".tbl2")[0]).find("[name='institute']").val();
+                    console.log(text);
+
+                    var len = $(".tbl2").length;
+                    console.log("student个数为" + len);
+                    var stuList = [];
+                    for (var i = 0; i < len; i++) {
+                        var stu = {
+                            institute: $($(".tbl2")[i]).find("[name='institute']").val(),
+                            sno: $($(".tbl2")[i]).find("[name='sno']").val(),
+                            sex: $($(".tbl2")[i]).find("[name='sex']").val(),
+                            subject: $($(".tbl2")[i]).find("[name='subject']").val(),
+                            major: $($(".tbl2")[i]).find("[name='major']").val(),
+                            ranking: $($(".tbl2")[i]).find("[name='ranking']").val()
+                        };
+                        stuList.push(stu);
+
+                    }
+                    ;
+                    console.log(JSON.stringify(stuList));
+
+
+                    var teacherList = [];
+                    for (var i = 0; i < $(".tbl3").length; i++) {
+                        var teacher = {
+                            tchinstitute: $($(".tbl3")[i]).find("[name='tchinstitute']").val(),
+                            jobno: $($(".tbl3")[i]).find("[name='jobno']").val(),
+                            tchname: $($(".tbl3")[i]).find("[name='tchname']").val(),
+                            education: $($(".tbl3")[i]).find("[name='education']").val(),
+                            tchmajor: $($(".tbl3")[i]).find("[name='tchmajor']").val(),
+                            tchranking: $($(".tbl3")[i]).find("[name='tchranking']").val(),
+                            tchrate: $($(".tbl3")[i]).find("[name='tchrate']").val(),
+
+
+                        };
+                        teacherList.push(teacher);
+
+                    }
+                    ;
+                    console.log(JSON.stringify(teacherList));
+
+                    var formData = new FormData();
+                    for (var i = 0; i < $("#filename")[0].files.length; i++) {
+                        formData.append('files', $('#filename')[0].files[i]);
+                    }
+                    ;
+
+                    formData.append("form", JSON.stringify(Obj1));
+                    formData.append("stuList", JSON.stringify(stuList));
+                    formData.append("teacherList", JSON.stringify(teacherList));
+
+                    $.ajax({
+                        url: "/upload",
+                        type: "POST",
+                        data: formData,
+                        processData: false,
+                        async: true,
+                        contentType: false,
+                        success: function () {
+                            alert("提交成功");
+                        },
+                        error: function () {
+                            alert("发送失败");
+                        }
+                    });
+
+                }
+            }
+        })
+    })
+</script>
+</html>

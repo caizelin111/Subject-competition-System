@@ -1,0 +1,211 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" xmlns:a="http://www.w3.org/1999/html">
+<head>
+    <script type="text/javascript" th:src="@{/js/jquery-3.4.1.min.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <style>
+        .navbar {
+            margin-bottom: 0;
+            top: 0px;
+            position: fixed;
+            left: 0;
+            right: 0;
+            /*background: white;*/
+            width: 100%;
+            height: 55px;
+
+        }
+
+        .sidebar {
+            background: lightgray;
+            padding: 0;
+            position: fixed;
+            bottom: 0;
+            top: 55px;
+            left: 0;
+            background: #2f4050;
+
+        }
+
+        /*鼠标没有在范围内情况下字体颜色*/
+        .sidebar ul li a {
+            color: #9d9d9d;
+            font-size: 16px;
+
+        }
+
+        /*鼠标浮停点击后离开颜色保持浮停的状态*/
+        .sidebar ul li a:focus {
+            background: #337ab7;
+            color: white;
+        }
+
+        /*鼠标浮停时颜色*/
+        .sidebar ul li a:hover {
+            background: #337ab7;
+            color: white;
+
+        }
+
+        /*.sidebar ul li a:active{*/
+        /*    background: #337ab7 ;*/
+        /*    color: white;*/
+
+        /*}*/
+
+        .content {
+            position: fixed;
+            top: 55px;
+            bottom: 0;
+            right: 0;
+            overflow: scroll;
+        }
+    </style>
+
+</head>
+
+
+<!--<body style="background-image: url(/images/main.jpg); background-size: cover;">-->
+<body>
+<div class="navbar ">
+    <nav class="navbar  navbar-inverse" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" style="color: white;font-size: 18px" href="#">学科竞赛管理系统</a>
+            </div>
+            <div>
+                <!--向左对齐-->
+                <ul class="nav navbar-nav navbar-left">
+
+                </ul>
+                <!--向右对齐-->
+                <ul class="nav navbar-nav navbar-right">
+                    <!-- -如果未登陆-->
+                    <li sec:authorize="!isAuthenticated()"><a href="/toLogin"
+                    ><span class="glyphicon glyphicon-log-in"></span> 登录</a></li>
+                    <!--                    <li sec:authorize="!isAuthenticated()"><a href="helloAdmin"-->
+                    <!--                    ><span class="glyphicon glyphicon-user"></span> 注册</a></li>-->
+
+                    <!--如果登陆：用户名，注销-->
+                    <li sec:authorize="isAuthenticated()">
+                    <li sec:authorize="isAuthenticated()">
+                        <a>
+                            <span sec:authorize="hasRole('ROLE_admin')">教务处管理员</span>
+                            <span sec:authorize="hasRole('ROLE_teacher')">第一导师</span>
+                            <span sec:authorize="hasRole('ROLE_senior')">二级学院</span>
+                            <span sec:authorize="hasRole('ROLE_student')">学生</span>
+                            <span sec:authentication="name"></span>
+                        </a>
+                    </li>
+                    </li>
+                    <li sec:authorize="isAuthenticated()"><a href="/logout"><span
+                            class="glyphicon glyphicon-off"></span> 注销</a></li>
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+</div>
+
+<div class="container-fluid main">
+
+
+    <div class="sidebar" style="width: 16%;float: left">
+        <!--            惠州学院图片-->
+        <!--        <div style="margin:40px auto 50px auto  ;text-align: center">-->
+        <!--            <img th:src="@{/images/hzxy.jpg}"  class="img-thumbnail"/>-->
+        <!--        </div>-->
+        <ul class="nav nav-pills nav-stacked ">
+            <li><a href="/toOwn">&nbsp;<span class="glyphicon glyphicon-user"></span>&emsp; 个人中心</a></li>
+            <li><a href="/toRead">&nbsp;<span class="glyphicon glyphicon-book"></span>&emsp; 阅读公告</a></li>
+            <li sec:authorize="hasRole('ROLE_teacher')"><a href="/toContest">&nbsp;<span
+                    class="glyphicon glyphicon-leaf"></span>&emsp; 学科竞赛</a></li>
+            <li sec:authorize="hasRole('ROLE_senior')"><a href="/toCheck">&nbsp;<span
+                    class="glyphicon glyphicon-check"></span>&emsp;
+                学院审核</a></li>
+            <li sec:authorize="hasRole('ROLE_admin')"><a href="/toNotice">&nbsp;<span
+                    class="glyphicon glyphicon-edit"></span>&emsp; 通知公告</a></li>
+            <li sec:authorize="hasRole('ROLE_admin')"><a href="/toNotice">&nbsp;<span
+                    class="glyphicon glyphicon-edit"></span>&emsp; 获奖考核</a></li>
+            <li sec:authorize="hasRole('ROLE_admin')"><a href="/toNotice">&nbsp;<span
+                    class="glyphicon glyphicon-edit"></span>&emsp; 教师反馈</a></li>
+            <li sec:authorize="hasRole('ROLE_admin')"><a href="/toNotice">&nbsp;<span
+                    class="glyphicon glyphicon-edit"></span>&emsp; 竞赛信息</a></li>
+            <li sec:authorize="hasRole('ROLE_admin')"><a href="/toNotice">&nbsp;<span
+                    class="glyphicon glyphicon-edit"></span>&emsp; 数据维护</a></li>
+        </ul>
+    </div>
+    <div class="content " style="width: 84%;float: left">
+        <div style="background: #e8e8e8;width:100%;height:60px;"></div>
+        <div>
+            <form role="form" style="margin-left: 10%;margin-right: 10%;">
+                <div class="form-group">
+                    <label class="help-block">公告标题</label>
+                    <input type="text" class="title form-control " name="title" placeholder="文本输入">
+                    <!--单选框-->
+                    <br>
+                    <label class="help-block">公告类型</label>
+                    <label class="radio-inline">
+                        <input type="radio" name="type" value="教务公告">教务公告
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="type" value="教务动态">教务动态
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="type" value="学科竞赛">学科竞赛
+                    </label>
+                    <br>
+
+
+                    <label class="help-block">公告</label>
+                    <textarea class="text1 form-control" rows="16" name="message"></textarea>
+                </div>
+                <button class="btn1 btn btn-info" type="button">发布</button>
+            </form>
+
+
+        </div>
+    </div>
+
+
+</div>
+</div>)
+</body>
+<script>
+    $(function () {
+
+
+        $(".btn1").click(function () {
+            if ($(".title").val() == "" || $(".text1").val() == "" || $(":radio:checked").length == 0) {
+                alert("请填写完整公告");
+                return false;
+            } else {
+                var jsonObj = {
+                    "title": $(".title").val(),
+                    "message": $(".text1").val(),
+                    "type": $(":radio:checked").val(),
+                    "author": null,
+                    "id": null
+                };
+                var jsonString = JSON.stringify(jsonObj);
+
+                $.ajax({
+                    type: "POST",
+                    url: "/publish",
+                    data: jsonString,
+                    "contentType": "application/json",
+                    success: function () {
+                        alert("执行成功");
+                    },
+                    error: function () {
+                        alert("执行出错");
+                    },
+                    // dataType:"json"，加入这一句表示返回的数据类型，但是本次没有返回数据，所以加进去会报错，走error状态
+                });
+            }
+        });
+    })
+
+</script>
+</html>

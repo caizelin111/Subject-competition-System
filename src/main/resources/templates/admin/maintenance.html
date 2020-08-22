@@ -1,0 +1,226 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" xmlns:a="http://www.w3.org/1999/html">
+<head>
+    <script type="text/javascript" th:src="@{/js/jquery-3.4.1.min.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+
+    <style>
+        .navbar {
+            margin-bottom: 0;
+            top: 0px;
+            position: fixed;
+            left: 0;
+            right: 0;
+            /*background: white;*/
+            width: 100%;
+            height: 55px;
+
+        }
+
+        .sidebar {
+            background: lightgray;
+            padding: 0;
+            position: fixed;
+            bottom: 0;
+            top: 55px;
+            left: 0;
+            background: #2f4050;
+
+
+        }
+
+        /*鼠标没有在范围内情况下字体颜色*/
+        .sidebar ul li a {
+            color: #9d9d9d;
+            font-size: 16px;
+
+        }
+
+        /*鼠标浮停点击后离开颜色保持浮停的状态*/
+        .sidebar ul li a:focus {
+            background: #337ab7;
+            color: white;
+        }
+
+        /*鼠标浮停时颜色*/
+        .sidebar ul li a:hover {
+            background: #337ab7;
+            color: white;
+
+        }
+
+        /*.sidebar ul li a:active{*/
+        /*    background: #337ab7 ;*/
+        /*    color: white;*/
+
+        /*}*/
+
+        .content {
+            position: fixed;
+            top: 55px;
+            bottom: 0;
+            right: 0;
+            overflow: scroll;
+
+
+        }
+    </style>
+
+</head>
+
+
+<!--<body style="background-image: url(/images/main.jpg); background-size: cover;">-->
+<body>
+<div class="navbar ">
+    <nav class="navbar  navbar-inverse" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" style="color: white;font-size: 18px" href="#">学科竞赛管理系统</a>
+            </div>
+            <div>
+                <!--向左对齐-->
+                <ul class="nav navbar-nav navbar-left">
+
+                </ul>
+                <!--向右对齐-->
+                <ul class="nav navbar-nav navbar-right">
+                    <!-- -如果未登陆-->
+                    <li sec:authorize="!isAuthenticated()"><a href="/toLogin"
+                    ><span class="glyphicon glyphicon-log-in"></span> 登录</a></li>
+                    <!--                    <li sec:authorize="!isAuthenticated()"><a href="helloAdmin"-->
+                    <!--                    ><span class="glyphicon glyphicon-user"></span> 注册</a></li>-->
+
+                    <!--如果登陆：用户名，注销-->
+                    <li sec:authorize="isAuthenticated()">
+                    <li sec:authorize="isAuthenticated()">
+                        <a>
+                            <span sec:authorize="hasRole('ROLE_admin')">教务处管理员</span>
+                            <span sec:authorize="hasRole('ROLE_teacher')">第一导师</span>
+                            <span sec:authorize="hasRole('ROLE_senior')">二级学院</span>
+                            <span sec:authorize="hasRole('ROLE_student')">学生</span>
+                            <span sec:authentication="name"></span>
+                        </a>
+                    </li>
+                    </li>
+                    <li sec:authorize="isAuthenticated()"><a href="/logout"><span
+                            class="glyphicon glyphicon-off"></span> 注销</a></li>
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+</div>
+
+<div class="container-fluid main">
+
+
+    <div class="sidebar" style="width: 16%;float: left">
+        <!--            惠州学院图片-->
+        <!--        <div style="margin:40px auto 50px auto  ;text-align: center">-->
+        <!--            <img th:src="@{/images/hzxy.jpg}"  class="img-thumbnail"/>-->
+        <!--        </div>-->
+        <ul class="nav nav-pills nav-stacked ">
+            <li><a href="/toOwn">&nbsp;<span class="glyphicon glyphicon-user"></span>&emsp; 个人中心</a></li>
+            <li><a href="/toRead">&nbsp;<span class="glyphicon glyphicon-book"></span>&emsp; 阅读公告</a></li>
+            <li sec:authorize="hasRole('ROLE_teacher')"><a href="/toContest">&nbsp;<span
+                    class="glyphicon glyphicon-leaf"></span>&emsp; 学科竞赛</a></li>
+            <li sec:authorize="hasRole('ROLE_senior')"><a href="/toCheck">&nbsp;<span
+                    class="glyphicon glyphicon-check"></span>&emsp;
+                学院审核</a></li>
+            <li sec:authorize="hasRole('ROLE_admin')"><a href="/toNotice">&nbsp;<span
+                    class="glyphicon glyphicon-edit"></span>&emsp; 通知公告</a></li>
+            <li sec:authorize="hasRole('ROLE_admin')"><a href="/toNotice">&nbsp;<span
+                    class="glyphicon glyphicon-edit"></span>&emsp; 获奖考核</a></li>
+            <li sec:authorize="hasRole('ROLE_admin')"><a href="/toNotice">&nbsp;<span
+                    class="glyphicon glyphicon-edit"></span>&emsp; 教师反馈</a></li>
+            <li sec:authorize="hasRole('ROLE_admin')"><a href="/toNotice">&nbsp;<span
+                    class="glyphicon glyphicon-edit"></span>&emsp; 竞赛信息</a></li>
+            <li sec:authorize="hasRole('ROLE_admin')"><a href="/toNotice">&nbsp;<span
+                    class="glyphicon glyphicon-edit"></span>&emsp; 数据维护</a></li>
+        </ul>
+        ​
+    </div>
+    <div class="content " style="width: 84%;float: left">
+        <div style="background: #e8e8e8;width:100%;height:60px;"></div>
+        <!--        <div class="row" style="margin: 100px 100px auto 100px">-->
+
+        <div style="margin:5% 15% auto 15%;">
+            <table style="margin:50px auto " class=" table table-striped table-responsive">
+
+                <thread>
+                    <tr>
+                        <th class="success">教务公告</th>
+                    </tr>
+                    </th></thread>
+                <tbody id="tbody1">
+
+
+                </tbody>
+            </table>
+            <table class="tbl2 table table-striped" align="center">
+
+            </table>
+
+        </div>
+    </div>
+</div>
+
+
+</body>
+<script>
+    $(function () {
+        var affiches;
+        $.ajax({
+            url: "/getAll",
+            type: "GET",
+            datatype: "json",
+            success: function (data) {
+                affiches = JSON.parse(data);
+                // console.log(JSON.parse(data));
+
+                $.each(affiches, function (i, affiche) {
+                    console.log(affiche.title);
+                    $("#tbody1").append(" <tr>\n" +
+                        "                    <th><a class='a1'>" + affiche.title + "</a></th>\n" +
+                        "                </tr>\n" +
+                        "                ")
+                });
+
+
+            },
+            error: function (data) {
+            }
+
+
+        });
+
+
+        $(document).off("click").on("click", ".a1", function (event) {
+
+
+            $(".tbl2").html("");
+            //:checked 选择器选取所有选中的复选框或单选按钮。
+            //     n=$(this).parents("tr");//找到checkbox选中的复选框的父级元素的索引号
+            var num = $(this).parents("tr").index();
+            var datetime = new Date(Date.parse(affiches[num].date.replace(/-/g, "/")));
+            var date = datetime.toLocaleDateString();
+            $(".tbl2").append(" <tbody>\n" +
+                "                <tr>\n" +
+                "                   <td align='center'style='font-size: 20px'>" + affiches[num].title + "</td>\n" +
+                "                </tr>\n" +
+                "                \n" +
+                "                <tr><td style='font-size: 16px'>&nbsp;&nbsp;&nbsp;&nbsp;\n" + affiches[num].message +
+                "                </td></tr>\n" +
+                "                <tr><td align='right'>撰稿：" + affiches[num].author + "<br>" + date + "</td></tr>\n" +
+
+                "                </tbody>");
+
+
+        })
+    });
+
+
+</script>
+
+</html>

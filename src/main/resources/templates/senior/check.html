@@ -1,0 +1,431 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" xmlns:a="http://www.w3.org/1999/html">
+<head>
+    <script type="text/javascript" th:src="@{/js/jquery-3.4.1.min.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+
+    <script>
+
+
+    </script>
+    <style>
+        .navbar {
+            margin-bottom: 0;
+            top: 0px;
+            position: fixed;
+            left: 0;
+            right: 0;
+            /*background: white;*/
+            width: 100%;
+            height: 55px;
+
+        }
+
+        .sidebar {
+            background: lightgray;
+            padding: 0;
+            position: fixed;
+            bottom: 0;
+            top: 55px;
+            left: 0;
+            background: #2f4050;
+
+
+        }
+
+        /*鼠标没有在范围内情况下字体颜色*/
+        .sidebar ul li a {
+            color: #9d9d9d;
+            font-size: 16px;
+
+        }
+
+        /*鼠标浮停点击后离开颜色保持浮停的状态*/
+        .sidebar ul li a:focus {
+            background: #337ab7;
+            color: white;
+        }
+
+        /*鼠标浮停时颜色*/
+        .sidebar ul li a:hover {
+            background: #337ab7;
+            color: white;
+
+        }
+
+        /*.sidebar ul li a:active{*/
+        /*    background: #337ab7 ;*/
+        /*    color: white;*/
+
+        /*}*/
+
+        .content {
+            position: fixed;
+            top: 55px;
+            bottom: 0;
+            right: 0;
+            overflow: scroll;
+
+
+        }
+    </style>
+
+
+</head>
+<!--<body style="background-image: url(/images/main.jpg); background-size: cover;">-->
+<body>
+<div class="navbar ">
+    <nav class="navbar  navbar-inverse" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" style="color: white;font-size: 18px" href="#">学科竞赛管理系统</a>
+            </div>
+            <div>
+                <!--向左对齐-->
+                <ul class="nav navbar-nav navbar-left">
+
+                </ul>
+                <!--向右对齐-->
+                <ul class="nav navbar-nav navbar-right">
+                    <!-- -如果未登陆-->
+                    <li sec:authorize="!isAuthenticated()"><a href="/toLogin"
+                    ><span class="glyphicon glyphicon-log-in"></span> 登录</a></li>
+                    <!--                    <li sec:authorize="!isAuthenticated()"><a href="helloAdmin"-->
+                    <!--                    ><span class="glyphicon glyphicon-user"></span> 注册</a></li>-->
+
+                    <!--如果登陆：用户名，注销-->
+                    <li sec:authorize="isAuthenticated()">
+                        <a>
+                            <span sec:authorize="hasRole('ROLE_admin')">教务处管理员</span>
+                            <span sec:authorize="hasRole('ROLE_teacher')">第一导师</span>
+                            <span sec:authorize="hasRole('ROLE_senior')">二级学院</span>
+                            <span sec:authorize="hasRole('ROLE_student')">学生</span>
+                            <span sec:authentication="name"></span>
+                        </a>
+                    </li>
+                    <li id="id1" sec:authorize="isAuthenticated()"><a href="/logout"><span
+                            class="glyphicon glyphicon-off"></span> 注销</a></li>
+                </ul>
+
+
+            </div>
+        </div>
+    </nav>
+</div>
+
+<div class="container-fluid main">
+    <div class="sidebar" style="width: 16%;float: left">
+        <!--            惠州学院图片-->
+        <!--            <div style="margin:40px auto 50px auto  ;text-align: center">-->
+        <!--                <img th:src="@{/images/hzxy.jpg}"  class="img-thumbnail"/>-->
+        <!--            </div>-->
+        <ul class="nav nav-pills nav-stacked ">
+            <li><a href="/toOwn">&nbsp;<span class="glyphicon glyphicon-user"></span>&emsp; 个人中心</a></li>
+            <li><a href="/toRead">&nbsp;<span class="glyphicon glyphicon-book"></span>&emsp; 阅读公告</a></li>
+            <li sec:authorize="hasRole('ROLE_teacher')"><a href="/toContest">&nbsp;<span
+                    class="glyphicon glyphicon-leaf"></span>&emsp; 学科竞赛</a></li>
+            <li sec:authorize="hasRole('ROLE_senior')"><a href="/toCheck">&nbsp;<span
+                    class="glyphicon glyphicon-check"></span>&emsp;
+                学院审核</a></li>
+            <li sec:authorize="hasRole('ROLE_admin')"><a href="/toNotice">&nbsp;<span
+                    class="glyphicon glyphicon-edit"></span>&emsp; 通知公告</a></li>
+            <li sec:authorize="hasRole('ROLE_admin')"><a href="/toNotice">&nbsp;<span
+                    class="glyphicon glyphicon-edit"></span>&emsp; 获奖考核</a></li>
+            <li sec:authorize="hasRole('ROLE_admin')"><a href="/toNotice">&nbsp;<span
+                    class="glyphicon glyphicon-edit"></span>&emsp; 教师反馈</a></li>
+            <li sec:authorize="hasRole('ROLE_admin')"><a href="/toNotice">&nbsp;<span
+                    class="glyphicon glyphicon-edit"></span>&emsp; 竞赛信息</a></li>
+            <li sec:authorize="hasRole('ROLE_admin')"><a href="/toNotice">&nbsp;<span
+                    class="glyphicon glyphicon-edit"></span>&emsp; 数据维护</a></li>
+        </ul>
+        ​
+    </div>
+    <div class="content " style="width: 84%;float: left">
+        <div role="row" style="background: #e8e8e8;width:100%;height:60px;">
+
+            <form class="navbar-form navbar-right" role="search">
+                <div class="form-group">
+                    <input type="text" class="form-control search" placeholder="Search">
+                </div>
+                <button type="button" class="btn1 btn btn-default"><span class="glyphicon glyphicon-search"></span>
+                </button>
+
+
+            </form>
+
+
+        </div>
+
+        <div style="margin:5% 15% auto 15%;">
+            <div style=" display: none" class="div01">
+                <table class="tbl1  table table-striped table-bordered table-responsive">
+                    <thead>
+                    <tr>
+                        <th width="8%">#</th>
+                        <th width="8%">学科竞赛</th>
+                        <th width="8%">获奖作品</th>
+                        <th width="8%">赛事类别</th>
+                        <th width="8%">奖励级别</th>
+                        <th width="8%">状态</th>
+                        <th width="8%">详情</th>
+
+                    </tr>
+                    </thead>
+                    <tbody id="tbody">
+
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="div02" style="display: none">
+
+                <table style="margin: 50px auto " class="tbl1 table table-striped table-bordered  table-responsive">
+                    <caption>基本信息</caption>
+                    <tbody id="tbody1">
+
+                    </tbody>
+
+                </table>
+                <table style="margin:50px auto " class="tbl2 table table-striped table-bordered  table-responsive">
+                    <caption>获奖学生信息</caption>
+                    <thead>
+                    <tr>
+                        <th>二级学院</th>
+                        <th>学号</th>
+                        <th>性别</th>
+                        <th>学科</th>
+                        <th>专业</th>
+                        <th>排名</th>
+                    </tr>
+                    </thead>
+                    <tbody id="tbody2">
+
+                    </tbody>
+                </table>
+                <table style="margin:50px auto " class="tbl3 table table-striped table-bordered  table-responsive">
+                    <caption>获奖老师信息</caption>
+                    <thead>
+                    <tr>
+                        <th>二级学院</th>
+                        <th>工号</th>
+                        <th>姓名</th>
+                        <th>学历</th>
+                        <th>职称</th>
+                        <th>排名</th>
+                        <th>贡献率</th>
+                    </tr>
+                    </thead>
+                    <tbody id="tbody3">
+
+                    </tbody>
+                </table>
+                <table style="margin:50px auto " class="tbl3 table table-striped table-responsive">
+                    <caption>获奖照片</caption>
+
+                    <tbody id="tbody4">
+                    <tr></tr>
+                    </tbody>
+                </table>
+
+                <form class="form01" role="form">
+
+                    <label>审核状态</label>
+                    <label class="radio-inline">
+                        <input type="radio" name="flag" value="通过">通过
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="flag" value="不通过">不通过
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="flag" value="暂缓通过">暂缓通过
+                    </label>
+                    <br><br><br><br>
+                    <label>意见</label>
+                    <textarea id="suggest" class="form-control" rows="5"></textarea><br><br><br>
+
+
+                    <button id="btn2" class="btn btn-info " type="button">提交</button>
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    $(function () {
+        var lists;
+
+        $("#id1").click(function () {
+            if (confirm("确定要退出吗？")) {
+                return true;
+            } else {
+                return false;
+            }
+        });
+
+        $(".btn1").click(function () {
+            $(".div02").css('display', 'none');
+            $("#tbody").html("");
+            $("#tbody1").html("");
+            $("#tbody2").html("");
+            $("#tbody3").html("");
+            $("#tbody4").html("");
+
+            var param = $(".search").val();
+
+            $.ajax({
+                url: "/search",
+                type: "POST",
+                data: {param: param},
+                success: function (data) {
+                    lists = JSON.parse(data);
+                    $.each(lists, function (i, list) {
+
+
+                        $("#tbody").append("<tr>\n" +
+                            "                    <td id='mark'>" + (i + 1) + "</td>\n" +
+                            "                    <td>" + list.contestname + "</td>\n" +
+                            "                    <td>" + list.workname + "</td>\n" +
+                            "                    <td>" + list.awardgrade + "</td>\n" +
+                            "                    <td>" + list.awardlevel + "</td>\n" +
+                            "                    <td>" + list.flag + "</td>\n" +
+                            "                    <td><a id='detial'>Detail</a></td>\n" +
+                            "                </tr>");
+
+                    });
+
+
+                    $(".div01").css('display', 'block');
+
+
+                }
+                ,
+                error: function (data) {
+
+                }
+
+
+            })
+
+
+        });
+
+
+        $(document).off("click").on("click", "#detial", function (event) {
+            //:checked 选择器选取所有选中的复选框或单选按钮。
+            //     n=$(this).parents("tr");//找到checkbox选中的复选框的父级元素的索引号
+            var num = $(this).parents("tr").find("#mark").text();
+            num = num - 1;
+            $(".div01").css('display', 'none');
+
+
+            $("#tbody1").append("<tr>" +
+                "                    <th>学科竞赛名称</th>\n" +
+                "                    <td>" + lists[num].contestname + "</td>\n" +
+                "                    <th>获奖作品名称</th>\n" +
+                "                    <td>" + lists[num].workname + "</td>\n" +
+                "                </tr>\n" +
+                "                <tr>\n" +
+                "                    <th>竞赛主办</th>\n" +
+                "                    <td>" + lists[num].sponsor + "</td>\n" +
+                "                    <th>发证单位</th>\n" +
+                "                    <td>" + lists[num].position + "</td>\n" +
+                "                </tr><tr>\n" +
+                "                    <th>获奖时间</th>\n" +
+                "                    <td>" + lists[num].datetime + "</td>\n" +
+                "                    <th>所属单位</th>\n" +
+                "                    <td>" + lists[num].belong + "</td>\n" +
+                "                </tr>\n" +
+                "                <tr>\n" +
+                "                    <th>赛事类别</th>\n" +
+                "                    <td>" + lists[num].eventcategory + "</td>\n" +
+                "                    <th>获奖等级</th>\n" +
+                "                    <td>" + lists[num].awardgrade + "</td>\n" +
+                "                </tr><tr>\n" +
+                "                    <th>奖励级别</th>\n" +
+                "                    <td>" + lists[num].awardlevel + "</td>\n" +
+                "                    <th>学科门类</th>\n" +
+                "                    <td>" + lists[num].type + "</td>\n" +
+                "                </tr>\n" +
+                "                <tr>\n" +
+                "                    <th>获奖人数</th>\n" +
+                "                    <td>" + lists[num].nums + "</td>\n" +
+                "                    <th>总分值</th>\n" +
+                "                    <td>" + lists[num].score + "</td>\n" +
+                "                </tr>")
+
+            items = JSON.parse(lists[num].stumsg);
+            $.each(items, function (n, item) {
+                $("#tbody2").append("<tr>\n" +
+                    "    <td>" + item.institute + "</td>\n" +
+                    "    <td>" + item.sno + "</td>\n" +
+                    "    <td>" + item.sex + "</td>\n" +
+                    "    <td>" + item.subject + "</td>\n" +
+                    "    <td>" + item.major + "</td>\n" +
+                    "    <td>" + item.ranking + "</td>\n" +
+                    "\n" +
+                    "</tr>");
+
+            });
+            itemss = JSON.parse(lists[num].tecmsg);
+            $.each(itemss, function (n, item) {
+                $("#tbody3").append("<tr>\n" +
+                    "    <td>" + item.tchinstitute + "</td>\n" +
+                    "    <td>" + item.jobno + "</td>\n" +
+                    "    <td>" + item.tchname + "</td>\n" +
+                    "    <td>" + item.education + "</td>\n" +
+                    "    <td>" + item.tchmajor + "</td>\n" +
+                    "    <td>" + item.tchranking + "</td>\n" +
+                    "    <td>" + item.tchrate + "</td>\n" +
+                    "\n" +
+                    "</tr>");
+
+            });
+            // var arr = eval('${lists[num].fileurl}');
+            var urls = new Array();
+            urls = lists[num].fileurl.split(',');
+            for (var i = 0; i < urls.length; i++) {
+                console.log(urls[i]);
+                $("#tbody4").append("<td><img  class=\"img-responsive img-thumbnail\"   src=\"" + urls[i] + "\" width=\"300\" height=\"300\"></td>");
+            }
+
+
+            // for(var i=0;i<picurls.length;i++){
+            //      console.log(picurls[i]);
+            //     $(".picture").append("<img src="+picurls[i]+"width=\"300\" height=\"300\"></p>");
+            //
+            //
+            $(".div02").css('display', 'block');
+
+
+            $(document).off("click").on("click", "#btn2", function () {
+                console.log("执行到这了哦");
+                $.ajax({
+                    type: "POST",
+                    url: "/submit",
+                    data: {
+                        "flag": $("input[name='flag']").val(),
+                        "suggest": $("#suggest").val(),
+                        "contestname": lists[num].contestname,
+                        "workname": lists[num].workname
+
+                    },
+                    success: function () {
+                        alert("提交成功");
+                    },
+                    error: function () {
+                        alert("提交失败");
+                    }
+
+                })
+            });
+        });
+
+
+    })
+
+</script>
+</html>

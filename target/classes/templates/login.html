@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en"xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+
+</head>
+
+<body style="height: 100%; background-image: url(/images/login.jpg); background-size: cover;background-attachment: fixed" >
+<div style="width: 24%;margin: 11% ;float :right;padding:20px 15px 15px 15px;background-color:rgba(255,255,255,0.9);">
+    <p style="text-align: center">账号登录</p>
+    <p style="height: 8px"></p>
+    <form role="form" class="form-horizontal" action="/login" method="post">
+        <table >
+            <tr style="text-align: right">
+                <td width="20%" ><label >账号&emsp;&emsp;</label></td>
+                <td width="50%"><input style="width: 85%" class="form-control"type="text" id="username" name="username"placeholder="请输入用户名"></td>
+            </tr>
+            <tr style="height: 18px"></tr>
+            <tr style="text-align: right">
+                <td width="20%"><label >密码&emsp;&emsp;</label></td>
+                <td width="50%"><input style="width: 85%" class="form-control" type="password" id="password" name="password" placeholder="请输入密码"></td>
+            </tr>
+            <tr style="height: 25px"></tr>
+            <tr>
+                <td ></td>
+            </tr>
+        </table>
+
+        <div style="margin: 0px 20px 0px 20px;">
+        <input type="checkbox" name="remember">记住我
+        <button style="width: 100%" class="btn btn-success" id="submit" type="submit" value="登录">登录</button>
+        <p style="height: 15px;"></p>
+        <a class="help-block"style="font-size: 8px"href="#">忘记密码？</a>
+        </div>
+    </form>
+</div>
+</body>
+</html>

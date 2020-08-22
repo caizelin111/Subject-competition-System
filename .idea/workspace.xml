@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="DcmsDemo:war" />
+    </artifacts-to-build>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="47c0369a-7005-4fce-a28e-41f216871200" name="Default Changelist" comment="" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
+  </component>
+  <component name="FavoritesManager">
+    <favorites_list name="securitydemo" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="HTML File" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="ROOT_SYNC" value="DONT_SYNC" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="vmOptionsForImporter" value="-Xmx768m" />
+      </MavenImportingSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="1Whp4Tg5mrs9b63DVyf7o4i8mKZ" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="C:/Program Files/Git/bin/git.exe" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="vcs.Git" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.springboot" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\WorkSpace\SpringbootWorkspace\securitydemo\src\main\resources\templates" />
+      <recent name="D:\WorkSpace\SpringbootWorkspace\securitydemo\src\main\resources\static\images" />
+      <recent name="D:\WorkSpace\SpringbootWorkspace\securitydemo\src\main\resources\static\fonts" />
+      <recent name="C:\Users\asus\Desktop\SpringbootWorkspace\securitydemo\src\main\resources\static" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.springboot.repository" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\WorkSpace\SpringbootWorkspace\securitydemo\src\main\resources\templates\public" />
+      <recent name="D:\WorkSpace\SpringbootWorkspace\securitydemo\src\main\resources\templates\admin" />
+      <recent name="D:\WorkSpace\SpringbootWorkspace\securitydemo\src\main\resources\templates\teacher" />
+      <recent name="D:\WorkSpace\SpringbootWorkspace\securitydemo\src\main\resources\templates\senior" />
+      <recent name="D:\WorkSpace\SpringbootWorkspace\securitydemo\src\main\resources\static\images" />
+    </key>
+  </component>
+  <component name="RestServicesNavigator">
+    <treeState>
+      <expand>
+        <path>
+          <item name="Found 10 services " type="fcff1e1b:RestServiceStructure$RootNode" />
+        </path>
+        <path>
+          <item name="Found 10 services " type="fcff1e1b:RestServiceStructure$RootNode" />
+          <item name="securitydemo" type="c588b436:RestServiceStructure$ProjectNode" />
+        </path>
+      </expand>
+      <select />
+    </treeState>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Spring Boot.SecurityApplication">
+    <configuration name="SecurityApplicationTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="DcmsDemo" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.springboot.security.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.springboot.security" />
+      <option name="MAIN_CLASS_NAME" value="com.springboot.security.SecurityApplicationTests" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SecurityApplicationTests.test1" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="DcmsDemo" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.springboot.security.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.springboot.security" />
+      <option name="MAIN_CLASS_NAME" value="com.springboot.security.SecurityApplicationTests" />
+      <option name="METHOD_NAME" value="test1" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="com.springboot.security in securitydemo" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="DcmsDemo" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.springboot.security.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.springboot.security" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="index.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/securitydemo/templates/index.html" useBuiltInWebServerPort="true">
+      <method v="2" />
+    </configuration>
+    <configuration name="main.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/securitydemo/templates/main.html" useBuiltInWebServerPort="true">
+      <method v="2" />
+    </configuration>
+    <configuration name="SecurityApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="DcmsDemo" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.springboot.SecurityApplication" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="UPDATE_ACTION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="JavaScript Debug.index.html" />
+      <item itemvalue="JavaScript Debug.main.html" />
+      <item itemvalue="JUnit.com.springboot.security in securitydemo" />
+      <item itemvalue="JUnit.SecurityApplicationTests" />
+      <item itemvalue="JUnit.SecurityApplicationTests.test1" />
+      <item itemvalue="Spring Boot.SecurityApplication" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.SecurityApplicationTests.test1" />
+        <item itemvalue="JUnit.SecurityApplicationTests" />
+        <item itemvalue="JUnit.com.springboot.security in securitydemo" />
+        <item itemvalue="JavaScript Debug.main.html" />
+        <item itemvalue="JavaScript Debug.index.html" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpringBeansView">
+    <option name="showFilesets" value="false" />
+    <option name="showImplicitBeans" value="false" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="47c0369a-7005-4fce-a28e-41f216871200" name="Default Changelist" comment="" />
+      <created>1579611489978</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1579611489978</updated>
+      <workItem from="1579611495254" duration="4741000" />
+      <workItem from="1579662879708" duration="1000" />
+      <workItem from="1579663032390" duration="1000" />
+      <workItem from="1579666957396" duration="7429000" />
+      <workItem from="1579771744351" duration="12693000" />
+      <workItem from="1579842397783" duration="5467000" />
+      <workItem from="1580210445074" duration="688000" />
+      <workItem from="1580297825203" duration="2449000" />
+      <workItem from="1580471230439" duration="1219000" />
+      <workItem from="1584348149398" duration="15654000" />
+      <workItem from="1584423214778" duration="16465000" />
+      <workItem from="1584465358458" duration="3679000" />
+      <workItem from="1584502485012" duration="5207000" />
+      <workItem from="1584546944283" duration="6796000" />
+      <workItem from="1584591173403" duration="5942000" />
+      <workItem from="1584680834626" duration="8103000" />
+      <workItem from="1584765743824" duration="3076000" />
+      <workItem from="1585045454042" duration="9087000" />
+      <workItem from="1585459704904" duration="2292000" />
+      <workItem from="1585636799414" duration="22641000" />
+      <workItem from="1585710892635" duration="32590000" />
+      <workItem from="1585796220817" duration="2444000" />
+      <workItem from="1585974528096" duration="842000" />
+      <workItem from="1586756188279" duration="41000" />
+      <workItem from="1586773474473" duration="1141000" />
+      <workItem from="1586774695545" duration="164000" />
+      <workItem from="1586774898533" duration="323000" />
+      <workItem from="1586775268412" duration="585000" />
+      <workItem from="1586775892055" duration="880000" />
+      <workItem from="1586780121893" duration="187000" />
+      <workItem from="1586784335104" duration="1166000" />
+      <workItem from="1586849883202" duration="49000" />
+      <workItem from="1586932373773" duration="2639000" />
+      <workItem from="1586965591975" duration="3673000" />
+      <workItem from="1587183163280" duration="14539000" />
+      <workItem from="1587376380315" duration="1018000" />
+      <workItem from="1587455759472" duration="7495000" />
+      <workItem from="1587530728147" duration="1599000" />
+      <workItem from="1587611801916" duration="2123000" />
+      <workItem from="1588178208150" duration="627000" />
+      <workItem from="1588255067128" duration="18000" />
+      <workItem from="1588475477707" duration="401000" />
+      <workItem from="1588869299713" duration="4453000" />
+      <workItem from="1588873849213" duration="11000" />
+      <workItem from="1588873958782" duration="229000" />
+      <workItem from="1588902022892" duration="12749000" />
+      <workItem from="1590414901281" duration="1222000" />
+      <workItem from="1590463165110" duration="4261000" />
+      <workItem from="1590486777415" duration="15556000" />
+      <workItem from="1590550209859" duration="25000" />
+      <workItem from="1590556664521" duration="3421000" />
+      <workItem from="1590656987858" duration="1244000" />
+      <workItem from="1590731406955" duration="2703000" />
+      <workItem from="1590919551459" duration="1950000" />
+      <workItem from="1590981704681" duration="4811000" />
+      <workItem from="1591097801653" duration="599000" />
+      <workItem from="1591151311323" duration="29941000" />
+      <workItem from="1591237971116" duration="8554000" />
+      <workItem from="1591278258005" duration="9126000" />
+      <workItem from="1591328726819" duration="83135000" />
+      <workItem from="1591529282202" duration="682000" />
+      <workItem from="1591713160398" duration="319000" />
+      <workItem from="1593349164441" duration="858000" />
+      <workItem from="1595071856461" duration="311000" />
+      <workItem from="1595072784207" duration="2204000" />
+      <workItem from="1597131632393" duration="144000" />
+      <workItem from="1597548473340" duration="1926000" />
+      <workItem from="1598017103692" duration="1282000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="1">
+          <value>
+            <State>
+              <option name="SHOW_ONLY_AFFECTED_CHANGES" value="true" />
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="HEAD" />
+                      </list>
+                    </value>
+                  </entry>
+                  <entry key="roots">
+                    <value>
+                      <list>
+                        <option value="$PROJECT_DIR$" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="OPEN_TABS">
+      <set>
+        <option value="1" />
+      </set>
+    </option>
+  </component>
+</project>

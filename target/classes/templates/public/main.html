@@ -1,0 +1,281 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" xmlns:a="http://www.w3.org/1999/html">
+<head>
+    <script type="text/javascript" th:src="@{/js/jquery-3.4.1.min.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+
+    <style>
+        .navbar {
+            margin-bottom: 0;
+            top: 0px;
+            position: fixed;
+            left: 0;
+            right: 0;
+            /*background: white;*/
+            width: 100%;
+            height: 55px;
+
+        }
+
+        .sidebar {
+            background: lightgray;
+            padding: 0;
+            position: fixed;
+            bottom: 0;
+            top: 55px;
+            left: 0;
+            background: #2f4050;
+
+
+        }
+
+        /*鼠标没有在范围内情况下字体颜色*/
+        .sidebar ul li a {
+            color: #9d9d9d;
+            font-size: 16px;
+
+        }
+
+        /*鼠标浮停点击后离开颜色保持浮停的状态*/
+        .sidebar ul li a:focus {
+            background: #337ab7;
+            color: white;
+        }
+
+        /*鼠标浮停时颜色*/
+        .sidebar ul li a:hover {
+            background: #337ab7;
+            color: white;
+
+        }
+
+        /*.sidebar ul li a:active{*/
+        /*    background: #337ab7 ;*/
+        /*    color: white;*/
+
+        /*}*/
+
+        .content {
+            position: fixed;
+            top: 55px;
+            bottom: 0;
+            right: 0;
+            overflow: scroll;
+
+
+        }
+
+        /*去掉bootstrap表格边框*/
+        .table > tbody > tr > th {
+            border: white 0px solid;
+        }
+
+        .table > tbody > tr > td {
+            border: white 0px solid;
+        }
+
+
+    </style>
+    <script>
+        $(function () {
+            $("#btn1").click(function () {
+                $("form input").attr("disabled", false);
+            })
+        });
+
+
+    </script>
+
+</head>
+
+
+<!--<body style="background-image: url(/images/main.jpg); background-size: cover;">-->
+<body>
+<div class="navbar ">
+    <nav class="navbar  navbar-inverse" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" style="color: white;font-size: 18px" href="#">学科竞赛管理系统</a>
+            </div>
+            <div>
+                <!--向左对齐-->
+                <ul class="nav navbar-nav navbar-left">
+
+                </ul>
+                <!--向右对齐-->
+                <ul class="nav navbar-nav navbar-right">
+                    <!-- -如果未登陆-->
+                    <li sec:authorize="!isAuthenticated()"><a href="/toLogin"
+                    ><span class="glyphicon glyphicon-log-in"></span> 登录</a></li>
+                    <!--                    <li sec:authorize="!isAuthenticated()"><a href="helloAdmin"-->
+                    <!--                    ><span class="glyphicon glyphicon-user"></span> 注册</a></li>-->
+
+                    <!--如果登陆：用户名，注销-->
+                    <li sec:authorize="isAuthenticated()">
+                    <li sec:authorize="isAuthenticated()">
+                        <a>
+                            <span sec:authorize="hasRole('ROLE_admin')">教务处管理员</span>
+                            <span sec:authorize="hasRole('ROLE_teacher')">第一导师</span>
+                            <span sec:authorize="hasRole('ROLE_senior')">二级学院</span>
+                            <span sec:authorize="hasRole('ROLE_student')">学生</span>
+                            <span sec:authentication="name"></span>
+                        </a>
+                    </li>
+                    </li>
+                    <li sec:authorize="isAuthenticated()"><a href="/logout"><span
+                            class="glyphicon glyphicon-off"></span> 注销</a></li>
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+</div>
+
+<div class="container-fluid main">
+
+
+    <div class="sidebar" style="width: 16%;float: left">
+        <!--            惠州学院图片-->
+        <!--        <div style="margin:40px auto 50px auto  ;text-align: center">-->
+        <!--            <img th:src="@{/images/hzxy.jpg}"  class="img-thumbnail"/>-->
+        <!--        </div>-->
+        <ul class="nav nav-pills nav-stacked ">
+            <li><a href="/toOwn">&nbsp;<span class="glyphicon glyphicon-user"></span>&emsp; 个人中心</a></li>
+            <li><a href="/toRead">&nbsp;<span class="glyphicon glyphicon-book"></span>&emsp; 阅读公告</a></li>
+            <li sec:authorize="hasRole('ROLE_teacher')"><a href="/toContest">&nbsp;<span
+                    class="glyphicon glyphicon-leaf"></span>&emsp; 学科竞赛</a></li>
+            <li sec:authorize="hasRole('ROLE_senior')"><a href="/toCheck">&nbsp;<span
+                    class="glyphicon glyphicon-check"></span>&emsp;
+                学院审核</a></li>
+            <li sec:authorize="hasRole('ROLE_admin')"><a href="/toNotice">&nbsp;<span
+                    class="glyphicon glyphicon-edit"></span>&emsp; 通知公告</a></li>
+            <li sec:authorize="hasRole('ROLE_admin')"><a href="/toNotice">&nbsp;<span
+                    class="glyphicon glyphicon-edit"></span>&emsp; 获奖考核</a></li>
+            <li sec:authorize="hasRole('ROLE_admin')"><a href="/toNotice">&nbsp;<span
+                    class="glyphicon glyphicon-edit"></span>&emsp; 教师反馈</a></li>
+            <li sec:authorize="hasRole('ROLE_admin')"><a href="/toNotice">&nbsp;<span
+                    class="glyphicon glyphicon-edit"></span>&emsp; 竞赛信息</a></li>
+            <li sec:authorize="hasRole('ROLE_admin')"><a href="/toNotice">&nbsp;<span
+                    class="glyphicon glyphicon-edit"></span>&emsp; 数据维护</a></li>
+        </ul>
+        ​
+    </div>
+    <div class="content " style="width: 84%;float: left">
+        <div style="background: #e8e8e8;width:100%;height:60px;"></div>
+        <div>
+            <button id="btn1" class="btn btn-default">编辑</button>
+            <hr/><!--下横线-->
+            <div style="margin-left: 12%">
+                <form id="form_update" disabled="disabled" role="form" action="/update" method="post">
+                    <table class="table table-responsive">
+                        <tbody>
+                        <tr>
+                            <th width="154">登录名：</th>
+                            <td id="name" th:text="${ayUser.name}">
+                                <p class="help-block"><span> &nbsp;</span>
+                                </p>
+                                <!--                            <input  id="alias" name="name" class="form-control input-sm" style="width: 20%" type="text"/>-->
+                                <!--                            <p class="help-block">-->
+                                <!--                                注意：不可修改</p>-->
+                                <!--&lt;!&ndash;                            <p class="help-block">如果您设定了登录别名，您就可以使用登录别名登录系统，多个别名用逗号隔开</p>&ndash;&gt;-->
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th>学院</th>
+                            <td id="secondSchool" th:text="${ayUser.secondSchool}">
+                                <p class="help-block"><span> &nbsp;</span>
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>密码：</th>
+                            <td>
+                                <input id="password" disabled="disabled" name="password" class="form-control input-sm"
+                                       style="display:inline;border: none;box-shadow: none;background-color: #f5f5f5;width:20%"
+                                       type="password" th:value="${ayUser.password}"><a style="display: inline"><span
+                                    id="eye" class="glyphicon glyphicon-eye-open "></span></a>
+
+                                <span id="span01" style="color: red;display:inline-block;"></span>
+
+
+                            </td>
+                        </tr>
+
+
+                        <tr>
+                            <th>邮箱：</th>
+                            <td>
+                                <input id="email" disabled="disabled" name="email" class="form-control input-sm"
+                                       style="border: none;box-shadow: none;background-color: #f5f5f5;width:20%"
+                                       type="text" th:value="${ayUser.email}"/><span style="color: red"
+                                                                                     th:errors="${ayUser.email}"></span>
+                                <p class="help-block">绑定邮箱后，即可使用邮箱作为用户名登录</p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th>手机号：</th>
+                            <td>
+                                <input id="phoneNumber" disabled="disabled" name="phoneNumber"
+                                       class="form-control input-sm"
+                                       style="border: none;box-shadow: none;background-color: #f5f5f5;width:20%"
+                                       type="text" th:value="${ayUser.phoneNumber}"/><span style="color: red"
+                                                                                           th:errors="${ayUser.phoneNumber}"></span>
+
+                                <p class="help-block"><span>*</span>手机号码</p>
+
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                    <div class="">
+                        <!--                    <img th:src="@{/images/wrong.png}"height="18" width="18" />-->
+                        <input id="saveall" disabled="disabled" type="submit" value="保存" class="btn btn-default">
+                        </input>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: red" th:text="${msg}"></span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+<script>
+    window.onload = function () {
+
+        //1、获得标签对象
+        var formObj = document.getElementById("form_update");
+        var passwordObj = document.getElementById("password");
+        var spanObj = document.getElementById("span01");
+        //2、通过标签对象.事件名=function(){}
+        formObj.onsubmit = function () {
+
+            //正则表达式
+            var patt = /^\w{6,10}$/;
+            var passwordText = passwordObj.value;
+            if (patt.test(passwordText)) {
+                //innerHTML可读可写
+                // spanObj.innerHTML=" <img th:src=\"@{/images/right.png}\"  height=\"188\" width=\"188\"/>";
+            } else {
+
+
+                // spanObj.innerHTML="<img th:src=\"@{/images/wrong.png}\"height=\"18\" width=\"18\" />";
+                spanObj.innerHTML = "密码格式错误";
+                return false;
+            }
+        }
+    }
+    $(function () {
+        $("#eye").on("mouseover", function () {
+            $("#password").prop("type", "text");
+        });
+        $("#eye").on("mouseout", function () {
+            $("#password").prop("type", "password");
+        });
+    });
+
+</script>
+</html>
